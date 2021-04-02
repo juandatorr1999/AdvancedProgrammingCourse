@@ -1,0 +1,32 @@
+Problema de Sincronizacion: El problema de sincornizacion es de exclusion mutua.
+
+Estrategia:
+Lo que hice fue utilizar el MUTEX para mantener las variables de entorno consistente entonces al momento de hacer cambios no se hiecieran cambios en otro lado.
+
+Utilice 2 semaforos, uno de PASSING y otro de PASSED para informarle al puente si estaba pasando un carro y cuando ya habia pasado. Cada carro tiene un sleep aleatorio.
+
+Utilice 2 variables compartidas para tener el numero de carros que necesitan pasar de cada uno de los lados, al momento que un carro pasaba
+la variable se le restaba 1 y de esta manera se tenia los carros que restaban por pasar.
+
+Tenia tambien otras 2 variables que se utilizaban para tener la cuenta de cuantos carros estaban en el puente de cada lado. Se llaman actualNorth y actualSouth.
+Para que al momento de tener 5 no dejara pasar los carros restantes del lado que estaban pasando y para que no dejara pasar a los carros del otro lado y no permitir que se bloquee.
+
+Uitilice una variable que se llama intercalar para que al momento de que sean 0 los carros de un lado que necesitan pasar o cuando hayan pasado 5 de un lado se cambie el sentido y de esta forma 
+no habra autos cruzando en una direccion indefinidamente sino que se balancea. Cuando es 1 quiere decir que pueden pasar los del sur y cuando es 0 quiere decir que los del norte pueden pasar.
+
+
+
+Como correr:
+En una terminal correr:
+gcc create.c -o create
+gcc bridge.c -o bridge
+./create
+./bridge
+
+En otra terminal correr:
+gcc farmers.c -o farmers
+./farmers 5 4
+
+Explicación:
+El primer parametro aparte del programa es el numero de granjeros en el norte y el segundo es el numero de granjeros en el sur.
+./farmers farmers_norte farmers_sur
